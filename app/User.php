@@ -28,8 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function rawEmails()
+    public function emails()
     {
-        return $this->hasMany(RawEmail::class);
+        return $this->hasMany(Email::class);
     }
 }

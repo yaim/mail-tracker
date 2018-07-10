@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreRawEmail;
-use App\RawEmail;
+use App\Http\Requests\StoreEmail;
+use App\Email;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +16,7 @@ class EmailController extends Controller
      */
     public function index()
     {
-        return Auth::user()->rawEmails;
+        return Auth::user()->emails;
     }
 
     /**
@@ -25,9 +25,9 @@ class EmailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRawEmail $request)
+    public function store(StoreEmail $request)
     {
-        $email = new RawEmail;
+        $email = new Email;
 
         $email->fill($request->toArray());
         $email->user_id = Auth::user()->id;
@@ -39,10 +39,10 @@ class EmailController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\RawEmail  $rawEmail
+     * @param  \App\Email  $email
      * @return \Illuminate\Http\Response
      */
-    public function show(RawEmail $email)
+    public function show(Email $email)
     {
         return $email;
     }

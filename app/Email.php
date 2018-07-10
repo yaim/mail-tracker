@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RawEmail extends Model
+class Email extends Model
 {
     /**
      * The attributes that are mass assignable.
