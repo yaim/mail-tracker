@@ -18,6 +18,7 @@ class Email extends Model
         'to_email_address',
         'subject',
         'content',
+        'tags',
     ];
 
     public function user()
