@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Collections\EmailCollection;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,6 +28,11 @@ class Email extends Model
     public function links()
     {
         return $this->hasMany(Link::class);
+    }
+
+    public function newCollection(array $emails = [])
+    {
+        return new EmailCollection($emails);
     }
 
     public function clicks()
