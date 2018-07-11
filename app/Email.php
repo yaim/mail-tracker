@@ -14,8 +14,8 @@ class Email extends Model
      * @var array
      */
     protected $fillable = [
-        'from',
-        'to',
+        'from_email_address',
+        'to_email_address',
         'subject',
         'content',
     ];

@@ -24,10 +24,10 @@ class StoreEmail extends FormRequest
     public function rules()
     {
         return [
-            'from'    => 'email|required|max:255',
-            'to'      => 'email|required|max:255',
-            'subject' => 'required|max:255',
-            'content' => 'required'
+            'from_email_address' => 'email|required|max:255',
+            'to_email_address'   => 'email|required|max:255',
+            'subject'            => 'required|max:255',
+            'content'            => 'required'
         ];
     }
 
