@@ -17,6 +17,7 @@ class TrackingController extends Controller
     public function email($uuid)
     {
         $email = Email::whereUuid($uuid)->firstOrFail();
+        $email->clicks()->create();
 
         return $this->pixelResponse();
     }
@@ -24,6 +25,7 @@ class TrackingController extends Controller
     public function link($uuid)
     {
         $link = Link::whereUuid($uuid)->firstOrFail();
+        $link->clicks()->create();
 
         return redirect($link->address);
     }
