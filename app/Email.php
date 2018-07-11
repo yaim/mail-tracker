@@ -29,6 +29,11 @@ class Email extends Model
         return $this->hasMany(Link::class);
     }
 
+    public function clicks()
+    {
+        return $this->morphMany(Click::class, 'clickable');
+    }
+
     public function parse()
     {
         if($this->parsed_at) {

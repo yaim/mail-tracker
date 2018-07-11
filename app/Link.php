@@ -20,4 +20,9 @@ class Link extends Model
     {
     	return $this->belongsTo(Email::class);
     }
+
+    public function clicks()
+    {
+        return $this->morphMany(Click::class, 'clickable');
+    }
 }
