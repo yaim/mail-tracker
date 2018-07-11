@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('tracking')->group(function () {
+	Route::get('email/{uuid}.gif', 'TrackingController@email');
+	Route::get('links/{uuid}', 'TrackingController@link');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -32,8 +32,7 @@ class Email extends Model
     public function parse()
     {
         if($this->parsed_at) {
-            echo $this->parsed_content;
-            return;
+            return $this;
         }
 
         $parser = new HtmlParser($this->content);
@@ -43,9 +42,12 @@ class Email extends Model
 
         $this->uuid = $pixelID;
         $this->links()->createMany($linkIDs);
-        $this->parsed_content = $parser->saveHTML();
+
         $this->parsed_at = new Carbon;
+        $this->parsed_content = $parser->saveHTML();
 
         $this->save();
+
+        return $this;
     }
 }
