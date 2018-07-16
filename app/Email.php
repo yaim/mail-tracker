@@ -4,7 +4,11 @@ namespace App;
 
 use App\Collections\EmailCollection;
 use Carbon\Carbon;
+use App\Exceptions\EmailNotParsedException;
+use App\Exceptions\EmailAlreadySentException;
+use App\Mail\DefaultMailer;
 use Illuminate\Database\Eloquent\Model;
+use Mail;
 
 class Email extends Model
 {
@@ -44,6 +48,29 @@ class Email extends Model
     public function isParsed()
     {
         return isset($this->parsed_at);
+    }
+
+    public function isSent()
+    {
+        return isset($this->sent_at);
+    }
+
+    public function send()
+    {
+        if (!$this->isParsed()) {
+            throw new EmailNotParsedException();
+        } elseif ($this->isSent()) {
+            throw new EmailAlreadySentException();
+        }
+
+        Mail::to($this->to_email_address)
+            ->queue(new DefaultMailer($this));
+
+        $this->sent_at = now();
+
+        $this->save();
+
+        return $this;
     }
 
     public function parse()
