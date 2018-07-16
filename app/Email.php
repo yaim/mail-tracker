@@ -41,9 +41,14 @@ class Email extends Model
         return $this->morphMany(Click::class, 'clickable');
     }
 
+    public function isParsed()
+    {
+        return isset($this->parsed_at);
+    }
+
     public function parse()
     {
-        if($this->parsed_at) {
+        if ($this->isParsed()) {
             return $this;
         }
 
