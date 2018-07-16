@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Collections\EmailCollection;
-use Carbon\Carbon;
 use App\Exceptions\EmailNotParsedException;
 use App\Exceptions\EmailAlreadySentException;
 use App\Mail\DefaultMailer;
@@ -87,7 +86,7 @@ class Email extends Model
         $this->uuid = $pixelID;
         $this->links()->createMany($linkIDs);
 
-        $this->parsed_at = new Carbon;
+        $this->parsed_at = now();
         $this->parsed_content = $parser->saveHTML();
 
         $this->save();
