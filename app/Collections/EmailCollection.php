@@ -12,4 +12,11 @@ class EmailCollection extends Collection
         	$email->parse();
         });
     }
+
+    public function send()
+    {
+        $this->each(function($email) {
+            $email->send();
+        });
+    }
 }
