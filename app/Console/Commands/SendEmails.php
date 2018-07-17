@@ -26,6 +26,8 @@ class SendEmails extends Command
                            ->get();
         }
 
-        $emails->send();
+        $emails->each(function ($email) {
+            $email->send();
+        });
     }
 }

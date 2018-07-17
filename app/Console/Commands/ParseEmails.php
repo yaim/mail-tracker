@@ -24,6 +24,8 @@ class ParseEmails extends Command
             $emails = Email::whereNull('parsed_at')->get();
         }
 
-        $emails->parse();
+        $emails->each(function ($email) {
+            $email->parse();
+        });
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Collections\EmailCollection;
 use App\Exceptions\EmailNotParsedException;
 use App\Exceptions\EmailAlreadySentException;
 use App\Mail\DefaultMailer;
@@ -32,11 +31,6 @@ class Email extends Model
     public function links()
     {
         return $this->hasMany(Link::class);
-    }
-
-    public function newCollection(array $emails = [])
-    {
-        return new EmailCollection($emails);
     }
 
     public function clicks()
