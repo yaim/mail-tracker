@@ -4,7 +4,6 @@ namespace App;
 
 use App\Exceptions\EmailNotParsedException;
 use App\Exceptions\EmailAlreadySentException;
-use App\Mail\DefaultMailer;
 use Illuminate\Database\Eloquent\Model;
 use Mail;
 
@@ -56,8 +55,19 @@ class Email extends Model
             throw new EmailAlreadySentException();
         }
 
-        Mail::to($this->to_email_address)
-            ->queue(new DefaultMailer($this));
+        $data = [
+            'from'    => $this->from_email_address,
+            'to'      => $this->to_email_address,
+            'subject' => $this->subject,
+            'content' => $this->parsed_content
+        ];
+
+        Mail::send([], [], function($message) use ($data) {
+            $message->from($data['from']);
+            $message->to($data['to']);
+            $message->subject($data['subject']);
+            $message->setBody($data['content'], 'text/html');
+        });
 
         $this->sent_at = now();
 

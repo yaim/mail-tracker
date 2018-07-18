@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Email;
+use App\Jobs\SendEmail;
 use Illuminate\Console\Command;
 
 class SendEmails extends Command
@@ -27,7 +28,7 @@ class SendEmails extends Command
         }
 
         $emails->each(function ($email) {
-            $email->send();
+            SendEmail::dispatch($email);
         });
     }
 }
