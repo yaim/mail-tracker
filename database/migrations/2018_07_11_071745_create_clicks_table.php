@@ -15,8 +15,11 @@ class CreateClicksTable extends Migration
     {
         Schema::create('clicks', function (Blueprint $table) {
             $table->increments('id');
-            $table->morphs('clickable');
+            $table->uuid('clickable_id');
+            $table->string('clickable_type');
             $table->timestamps();
+
+            $table->index(['clickable_id', 'clickable_type']);
         });
     }
 

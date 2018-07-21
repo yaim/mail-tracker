@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\UuidModel as Model;
 
 class Link extends Model
 {
@@ -12,8 +12,8 @@ class Link extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'address',
-        'uuid',
     ];
 
     public function email()

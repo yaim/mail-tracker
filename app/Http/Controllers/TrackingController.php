@@ -14,17 +14,17 @@ class TrackingController extends Controller
         return response($pixel, 200)->header('Content-Type', 'image/gif');
     }
 
-    public function email($uuid)
+    public function email($id)
     {
-        $email = Email::whereUuid($uuid)->firstOrFail();
+        $email = Email::findOrFail($id);
         $email->clicks()->create();
 
         return $this->pixelResponse();
     }
 
-    public function link($uuid)
+    public function link($id)
     {
-        $link = Link::whereUuid($uuid)->firstOrFail();
+        $link = Link::findOrFail($id);
         $link->clicks()->create();
 
         return redirect($link->address);

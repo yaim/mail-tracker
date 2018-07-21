@@ -14,10 +14,9 @@ class CreateLinksTable extends Migration
     public function up()
     {
         Schema::create('links', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('email_id')->unsigned();
+            $table->uuid('id')->primary();
+            $table->uuid('email_id');
             $table->text('address');
-            $table->uuid('uuid')->unique();
             $table->timestamps();
 
             $table->foreign('email_id')->references('id')->on('emails');

@@ -5,7 +5,7 @@ namespace App;
 use App\Exceptions\EmailNotParsedException;
 use App\Exceptions\EmailAlreadySentException;
 use App\MailTracker\Helpers\HtmlParser;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\UuidModel as Model;
 use Mail;
 
 class Email extends Model
@@ -85,10 +85,9 @@ class Email extends Model
 
         $parser = new HtmlParser($this->content);
 
-        $pixelID = $parser->setTrackingPixel();
+        $parser->setTrackingPixel($this->id);
         $linkIDs = $parser->setTrackingLinks();
 
-        $this->uuid = $pixelID;
         $this->links()->createMany($linkIDs);
 
         $this->parsed_at = now();
