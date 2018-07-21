@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\MailTracker\Helpers;
 
 use DOMDocument;
 use Ramsey\Uuid\Uuid;
@@ -19,16 +19,14 @@ class HtmlParser
         return $this;
     }
 
-    public function setTrackingPixel()
+    public function setTrackingPixel(string $uuid)
     {
-        $uuid = Uuid::uuid4()->toString();
-
         $pixel = $this->document->createElement("img");
         $pixel->setAttribute('src', url('tracking/email/'.$uuid.'.gif'));
 
         $this->document->appendChild($pixel);
 
-        return $uuid;
+        return true;
     }
 
     public function setTrackingLinks()
@@ -36,14 +34,16 @@ class HtmlParser
         $links = [];
 
         foreach($this->document->getElementsByTagName('a') as $dom) {
+            $uuid = Uuid::uuid4()->toString();
+
             $link = [
                 'address' => $dom->getAttribute('href'),
-                'uuid'    => Uuid::uuid4()->toString()
+                'id'      => $uuid
             ];
 
             $links[] = $link;
 
-            $dom->setAttribute('href', url('tracking/links/'.$link['uuid']));
+            $dom->setAttribute('href', url('tracking/links/'.$uuid));
         }
 
         return $links;

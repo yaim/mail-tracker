@@ -4,6 +4,7 @@ namespace App;
 
 use App\Exceptions\EmailNotParsedException;
 use App\Exceptions\EmailAlreadySentException;
+use App\MailTracker\Helpers\HtmlParser;
 use Illuminate\Database\Eloquent\Model;
 use Mail;
 
