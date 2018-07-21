@@ -20,6 +20,8 @@ Route::prefix('tracking')->group(function () {
 	Route::get('links/{uuid}', 'TrackingController@link');
 });
 
+Route::get('email/{id}', 'EmailController@showHtml');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -46,4 +46,21 @@ class EmailController extends Controller
     {
         return $email;
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showHtml(string $id)
+    {
+        $email = Email::findOrFail($id);
+
+        if(!$email->isParsed()) {
+            return abort(404);
+        }
+
+        return $email->parsed_content;
+    }
 }
