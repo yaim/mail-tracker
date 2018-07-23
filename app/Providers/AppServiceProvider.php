@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\MailTracker\Services\Contracts\Email\EmailSenderInterface;
+use App\MailTracker\Services\Email\EmailSender;
 use App\MailTracker\Repositories\Contracts\EmailRepositoryInterface;
 use App\MailTracker\Repositories\Contracts\LinkRepositoryInterface;
 use App\MailTracker\Repositories\Eloquent\EmailRepository;
@@ -28,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(EmailRepositoryInterface::class, EmailRepository::class);
+        $this->app->bind(EmailSenderInterface::class, EmailSender::class);
+
         $this->app->bind(LinkRepositoryInterface::class, LinkRepository::class);
     }
 }

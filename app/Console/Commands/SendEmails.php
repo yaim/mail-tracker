@@ -2,32 +2,26 @@
 
 namespace App\Console\Commands;
 
-use App\MailTracker\Email;
+use App\MailTracker\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
 use App\Jobs\SendEmail;
 use Illuminate\Console\Command;
 
 class SendEmails extends Command
 {
-    protected $signature = 'emails:send {emailID?}';
-
+    protected $signature = 'emails:send';
     protected $description = 'Queue parsed emails to send';
+    protected $emails;
 
-    public function __construct()
+    public function __construct(EmailRepository $emails)
     {
+        $this->emails = $emails;
+
         parent::__construct();
     }
 
     public function handle()
     {
-        if ($emailID = $this->argument('emailID')) {
-            $emails = Email::whereId($emailID)->get();
-        } else {
-            $emails = Email::whereNotNull('parsed_at')
-                           ->whereNull('sent_at')
-                           ->get();
-        }
-
-        $emails->each(function ($email) {
+        $this->emails->getSendReadyEmails()->each(function ($email) {
             SendEmail::dispatch($email);
         });
     }

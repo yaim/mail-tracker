@@ -2,11 +2,8 @@
 
 namespace App\MailTracker;
 
-use App\Exceptions\EmailNotParsedException;
-use App\Exceptions\EmailAlreadySentException;
 use App\MailTracker\Helpers\HtmlParser;
 use App\MailTracker\Database\Eloquent\UuidModel as Model;
-use Mail;
 
 class Email extends Model
 {
@@ -36,45 +33,6 @@ class Email extends Model
     public function clicks()
     {
         return $this->morphMany(Click::class, 'clickable');
-    }
-
-    public function isParsed()
-    {
-        return isset($this->parsed_at);
-    }
-
-    public function isSent()
-    {
-        return isset($this->sent_at);
-    }
-
-    public function send()
-    {
-        if (!$this->isParsed()) {
-            throw new EmailNotParsedException();
-        } elseif ($this->isSent()) {
-            throw new EmailAlreadySentException();
-        }
-
-        $data = [
-            'from'    => $this->from_email_address,
-            'to'      => $this->to_email_address,
-            'subject' => $this->subject,
-            'content' => $this->parsed_content
-        ];
-
-        Mail::send([], [], function($message) use ($data) {
-            $message->from($data['from']);
-            $message->to($data['to']);
-            $message->subject($data['subject']);
-            $message->setBody($data['content'], 'text/html');
-        });
-
-        $this->sent_at = now();
-
-        $this->save();
-
-        return $this;
     }
 
     public function parse()

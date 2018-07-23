@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\MailTracker\Email;
+use App\MailTracker\Services\Contracts\Email\EmailSenderInterface as EmailSender;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -20,8 +21,8 @@ class SendEmail implements ShouldQueue
         $this->email = $email;
     }
 
-    public function handle()
+    public function handle(EmailSender $emailSender)
     {
-        $this->email->send();
+        $emailSender->process($this->email);
     }
 }
