@@ -2,30 +2,27 @@
 
 namespace App\Console\Commands;
 
-use App\MailTracker\Email;
+use App\MailTracker\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
+use App\Jobs\ParseEmail;
 use Illuminate\Console\Command;
 
 class ParseEmails extends Command
 {
-    protected $signature = 'emails:parse {emailID?}';
-
+    protected $signature = 'emails:parse';
     protected $description = 'Places tarackable pixel and links into email';
+    protected $emails;
 
-    public function __construct()
+    public function __construct(EmailRepository $emails)
     {
+        $this->emails = $emails;
+
         parent::__construct();
     }
 
     public function handle()
     {
-        if ($emailID = $this->argument('emailID')) {
-            $emails = Email::whereId($emailID)->get();
-        } else {
-            $emails = Email::whereNull('parsed_at')->get();
-        }
-
-        $emails->each(function ($email) {
-            $email->parse();
+        $this->emails->getRawEmails()->each(function ($email) {
+            ParseEmail::dispatch($email);
         });
     }
 }

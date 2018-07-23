@@ -14,5 +14,7 @@ interface EmailRepositoryInterface extends AbstractRepositoryInterface {
 
     public function forUser(User $user) : Collection;
 
+    public function getRawEmails(int $limit) : Collection;
+
     public function getSendReadyEmails(int $limit) : Collection;
 }

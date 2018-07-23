@@ -35,6 +35,14 @@ class EmailRepository extends AbstractRepository implements EmailRepositoryInter
         return $user->emails;
     }
 
+    public function getRawEmails(int $limit = -1) : Collection
+    {
+        return $this->model
+                    ->whereNull('parsed_at')
+                    ->limit($limit)
+                    ->get();
+    }
+
     public function getSendReadyEmails(int $limit = -1) : Collection
     {
         return $this->model
