@@ -3,13 +3,14 @@
 namespace App\Events;
 
 use App\MailTracker\Email;
-use App\Jobs\SendEmail;
 
 class EmailParsed
 {
+    public $email;
+
     public function __construct(Email $email)
     {
-        SendEmail::dispatch($email);
+        $this->email = $email;
     }
 
 }
