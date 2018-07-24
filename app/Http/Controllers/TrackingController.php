@@ -36,6 +36,6 @@ class TrackingController extends Controller
         $link = $this->links->findOrFail($id);
         $link->clicks()->create();
 
-        return redirect($link->address);
+        return redirect($link->address)->header('X-Robots-Tag', 'noindex');
     }
 }
