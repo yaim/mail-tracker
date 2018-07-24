@@ -4,6 +4,7 @@ namespace App\MailTracker\Services\Email;
 
 use App\Events\EmailParsed;
 use App\MailTracker\Email;
+use App\MailTracker\Repositories\Contracts\LinkRepositoryInterface as LinkRepository;
 use App\MailTracker\Services\Contracts\Email\EmailParserInterface;
 use App\MailTracker\Services\Contracts\Email\EmailValidatorInterface as EmailValidator;
 use Ramsey\Uuid\Uuid;
@@ -12,11 +13,13 @@ class EmailParser implements EmailParserInterface
 {
     protected $domParser;
     protected $email;
+    protected $links;
     protected $validator;
 
-    public function __construct(EmailValidator $validator)
+    public function __construct(EmailValidator $validator, LinkRepository $links)
     {
         $this->validator = $validator;
+        $this->links = $links;
     }
 
     public function parse(Email $email)
@@ -72,7 +75,7 @@ class EmailParser implements EmailParserInterface
             $dom->setAttribute('href', route('tracking.links', $uuid));
         }
 
-        $this->email->links()->createMany($links);
+        $this->links->createManyForEmail($this->email, $links);
     }
 
 }
