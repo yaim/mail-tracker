@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Email;
+use App\MailTracker\Email;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

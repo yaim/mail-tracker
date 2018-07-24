@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Email;
+use App\MailTracker\Email;
 use App\Jobs\SendEmail;
 use Illuminate\Console\Command;
 

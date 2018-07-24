@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\MailTracker;
 
-use App\Models\UuidModel as Model;
+use App\MailTracker\Database\Eloquent\UuidModel as Model;
 
 class Link extends Model
 {

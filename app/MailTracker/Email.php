@@ -1,20 +1,20 @@
 <?php
 
-namespace App;
+namespace App\MailTracker;
 
 use App\Exceptions\EmailNotParsedException;
 use App\Exceptions\EmailAlreadySentException;
 use App\MailTracker\Helpers\HtmlParser;
-use App\Models\UuidModel as Model;
+use App\MailTracker\Database\Eloquent\UuidModel as Model;
 use Mail;
 
 class Email extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    protected $dates = [
+        'parsed_at',
+        'sent_at'
+    ];
+
     protected $fillable = [
         'from_email_address',
         'to_email_address',

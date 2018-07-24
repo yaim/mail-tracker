@@ -22,7 +22,7 @@ class HtmlParser
     public function setTrackingPixel(string $uuid)
     {
         $pixel = $this->document->createElement("img");
-        $pixel->setAttribute('src', url('tracking/email/'.$uuid.'.gif'));
+        $pixel->setAttribute('src', route('tracking.email', $uuid));
 
         $this->document->appendChild($pixel);
 
@@ -36,14 +36,12 @@ class HtmlParser
         foreach($this->document->getElementsByTagName('a') as $dom) {
             $uuid = Uuid::uuid4()->toString();
 
-            $link = [
+            $links[] = [
                 'address' => $dom->getAttribute('href'),
                 'id'      => $uuid
             ];
 
-            $links[] = $link;
-
-            $dom->setAttribute('href', url('tracking/links/'.$uuid));
+            $dom->setAttribute('href', route('tracking.links', $uuid));
         }
 
         return $links;

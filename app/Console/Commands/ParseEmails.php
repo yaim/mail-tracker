@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Email;
+use App\MailTracker\Email;
 use Illuminate\Console\Command;
 
 class ParseEmails extends Command
