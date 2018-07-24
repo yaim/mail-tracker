@@ -53,7 +53,8 @@ class EmailParser implements EmailParserInterface
         $pixel = $this->domParser->createElement("img");
         $pixel->setAttribute('src', route('tracking.email', $uuid));
 
-        $this->domParser->appendChild($pixel);
+        $table = $this->domParser->getElementsByTagName('table')->item(0);
+        $table->parentNode->insertBefore($pixel, $table);
     }
 
     protected function setTrackingLinks()
