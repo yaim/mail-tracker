@@ -11,9 +11,9 @@ class EmailCreator implements EmailCreatorInterface
 {
     protected $email;
 
-    public function __construct()
+    public function __construct(Email $email)
     {
-        $this->email = new Email;
+        $this->email = $email;
     }
 
     public function create( array $data, User $user = null)
