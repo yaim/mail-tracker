@@ -6,11 +6,6 @@ use App\MailTracker\Database\Eloquent\UuidModel as Model;
 
 class Link extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'id',
         'address',
