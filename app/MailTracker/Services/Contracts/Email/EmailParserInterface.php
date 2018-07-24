@@ -7,6 +7,6 @@ use App\MailTracker\Email;
 interface EmailParserInterface
 {
 
-    public function process(Email $email);
+    public function parse(Email $email);
 
 }

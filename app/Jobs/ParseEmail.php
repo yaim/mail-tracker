@@ -23,6 +23,6 @@ class ParseEmail implements ShouldQueue
 
     public function handle(EmailParser $emailParser)
     {
-        $emailParser->process($this->email);
+        $emailParser->parse($this->email);
     }
 }

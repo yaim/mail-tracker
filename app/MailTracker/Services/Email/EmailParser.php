@@ -13,18 +13,18 @@ class EmailParser implements EmailParserInterface
     protected $domParser;
     protected $email;
 
-    public function process(Email $email)
+    public function parse(Email $email)
     {
         $this->email = $email;
         $this->domParser = domDocument($this->email->content);
 
         $this->validate();
-        $this->parse();
+        $this->process();
 
         event(new EmailParsed($this->email));
     }
 
-    protected function parse()
+    protected function process()
     {
         $this->setTrackingPixel($this->email->id);
         $this->setTrackingLinks();

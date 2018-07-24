@@ -7,6 +7,6 @@ use App\MailTracker\Email;
 interface EmailSenderInterface
 {
 
-    public function process(Email $email);
+    public function send(Email $email);
 
 }

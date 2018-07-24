@@ -12,15 +12,15 @@ class EmailSender implements EmailSenderInterface
 {
     protected $email;
 
-    public function process(Email $email)
+    public function send(Email $email)
     {
         $this->email = $email;
 
         $this->validate();
-        $this->send();
+        $this->process();
     }
 
-    protected function send()
+    protected function process()
     {
         $data = $this->getSendingData();
 

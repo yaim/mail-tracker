@@ -23,6 +23,6 @@ class SendEmail implements ShouldQueue
 
     public function handle(EmailSender $emailSender)
     {
-        $emailSender->process($this->email);
+        $emailSender->send($this->email);
     }
 }
