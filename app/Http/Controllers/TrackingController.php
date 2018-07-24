@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Email;
-use App\Link;
+use App\MailTracker\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
+use App\MailTracker\Repositories\Contracts\LinkRepositoryInterface as LinkRepository;
 
 class TrackingController extends Controller
 {
+    protected $emails;
+    protected $links;
+
+    public function __construct(EmailRepository $emails, LinkRepository $links)
+    {
+        $this->emails = $emails;
+        $this->links = $links;
+    }
+
     private function pixelResponse()
     {
         $pixel = base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
@@ -16,7 +25,7 @@ class TrackingController extends Controller
 
     public function email($id)
     {
-        $email = Email::findOrFail($id);
+        $email = $this->emails->findOrFail($id);
         $email->clicks()->create();
 
         return $this->pixelResponse();
@@ -24,7 +33,7 @@ class TrackingController extends Controller
 
     public function link($id)
     {
-        $link = Link::findOrFail($id);
+        $link = $this->links->findOrFail($id);
         $link->clicks()->create();
 
         return redirect($link->address);
