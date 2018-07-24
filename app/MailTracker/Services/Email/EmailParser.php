@@ -2,6 +2,7 @@
 
 namespace App\MailTracker\Services\Email;
 
+use App\Events\EmailParsed;
 use App\Exceptions\EmailAlreadyParsedException;
 use App\MailTracker\Email;
 use App\MailTracker\Services\Contracts\Email\EmailParserInterface;
@@ -19,6 +20,8 @@ class EmailParser implements EmailParserInterface
 
         $this->validate();
         $this->parse();
+
+        event(new EmailParsed($this->email));
     }
 
     protected function parse()

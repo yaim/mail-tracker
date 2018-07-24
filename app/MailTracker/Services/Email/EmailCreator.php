@@ -2,6 +2,7 @@
 
 namespace App\MailTracker\Services\Email;
 
+use App\Events\EmailCreated;
 use App\MailTracker\Email;
 use App\MailTracker\User;
 use App\MailTracker\Services\Contracts\Email\EmailCreatorInterface;
@@ -23,6 +24,8 @@ class EmailCreator implements EmailCreatorInterface
 
         $this->email->fill($data);
         $this->email->save();
+
+        event(new EmailCreated($this->email));
 
         return $this->email;
     }
