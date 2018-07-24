@@ -3,11 +3,21 @@
 namespace App\MailTracker\Repositories\Eloquent;
 
 use App\MailTracker\Repositories\Contracts\EmailRepositoryInterface;
+use App\MailTracker\Services\Contracts\Email\EmailCreatorInterface as EmailCreator;
 use App\MailTracker\Email;
 use App\MailTracker\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class EmailRepository extends AbstractRepository implements EmailRepositoryInterface {
+class EmailRepository extends AbstractRepository implements EmailRepositoryInterface
+{
+    protected $creator;
+
+    public function __construct(EmailCreator $creator)
+    {
+        $this->creator = $creator;
+
+        parent::__construct();
+    }
 
     public function getModel()
     {
@@ -16,10 +26,7 @@ class EmailRepository extends AbstractRepository implements EmailRepositoryInter
 
     public function createForUser(User $user, array $data) : Email
     {
-        $this->model->fill($data);
-        $user->emails()->save($this->model);
-
-        return $this->model;
+        return $this->creator->create($data, $user);
     }
 
     public function findParsedOrFail(string $id) : Email
