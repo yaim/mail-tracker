@@ -18,6 +18,7 @@ class CreateClicksTable extends Migration
             $table->uuid('clickable_id');
             $table->string('clickable_type');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->index(['clickable_id', 'clickable_type']);
         });

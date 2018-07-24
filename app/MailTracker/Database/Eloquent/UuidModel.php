@@ -2,7 +2,6 @@
 
 namespace App\MailTracker\Database\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
 abstract class UuidModel extends Model

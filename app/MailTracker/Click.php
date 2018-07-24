@@ -2,7 +2,7 @@
 
 namespace App\MailTracker;
 
-use Illuminate\Database\Eloquent\Model;
+use App\MailTracker\Database\Eloquent\Model as Model;
 
 class Click extends Model
 {

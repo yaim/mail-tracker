@@ -18,6 +18,7 @@ class CreateLinksTable extends Migration
             $table->uuid('email_id');
             $table->text('address');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('email_id')->references('id')->on('emails');
         });
