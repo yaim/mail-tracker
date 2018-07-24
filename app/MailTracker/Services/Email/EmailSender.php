@@ -2,15 +2,20 @@
 
 namespace App\MailTracker\Services\Email;
 
-use App\Exceptions\EmailNotParsedException;
-use App\Exceptions\EmailAlreadySentException;
 use App\MailTracker\Email;
 use App\MailTracker\Services\Contracts\Email\EmailSenderInterface;
+use App\MailTracker\Services\Contracts\Email\EmailValidatorInterface as EmailValidator;
 use Mail;
 
 class EmailSender implements EmailSenderInterface
 {
     protected $email;
+    protected $validator;
+
+    public function __construct(EmailValidator $validator)
+    {
+        $this->validator = $validator;
+    }
 
     public function send(Email $email)
     {
@@ -18,6 +23,14 @@ class EmailSender implements EmailSenderInterface
 
         $this->validate();
         $this->process();
+    }
+
+    protected function validate()
+    {
+        $this->validator
+             ->setModel($this->email)
+             ->checkParsed()
+             ->checkNotSent();
     }
 
     protected function process()
@@ -45,29 +58,4 @@ class EmailSender implements EmailSenderInterface
         ];
     }
 
-    protected function validate()
-    {
-        $this->checkParsed();
-        $this->checkNotSent();
-
-        return true;
-    }
-
-    protected function checkParsed()
-    {
-        if (!isset($this->email->parsed_at)) {
-            throw new EmailNotParsedException();
-        }
-
-        return true;
-    }
-
-    protected function checkNotSent()
-    {
-        if (isset($this->email->sent_at)) {
-            throw new EmailAlreadySentException();
-        }
-
-        return true;
-    }
 }

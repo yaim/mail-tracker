@@ -3,15 +3,21 @@
 namespace App\MailTracker\Services\Email;
 
 use App\Events\EmailParsed;
-use App\Exceptions\EmailAlreadyParsedException;
 use App\MailTracker\Email;
 use App\MailTracker\Services\Contracts\Email\EmailParserInterface;
+use App\MailTracker\Services\Contracts\Email\EmailValidatorInterface as EmailValidator;
 use Ramsey\Uuid\Uuid;
 
 class EmailParser implements EmailParserInterface
 {
     protected $domParser;
     protected $email;
+    protected $validator;
+
+    public function __construct(EmailValidator $validator)
+    {
+        $this->validator = $validator;
+    }
 
     public function parse(Email $email)
     {
@@ -22,6 +28,13 @@ class EmailParser implements EmailParserInterface
         $this->process();
 
         event(new EmailParsed($this->email));
+    }
+
+    protected function validate()
+    {
+        $this->validator
+             ->setModel($this->email)
+             ->checkNotParsed();
     }
 
     protected function process()
@@ -59,22 +72,6 @@ class EmailParser implements EmailParserInterface
         }
 
         $this->email->links()->createMany($links);
-    }
-
-    protected function validate()
-    {
-        $this->checkNotParsed();
-
-        return true;
-    }
-
-    protected function checkNotParsed()
-    {
-        if (isset($this->email->parsed_at)) {
-            throw new EmailAlreadyParsedException();
-        }
-
-        return true;
     }
 
 }
