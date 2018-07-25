@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Email;
+use App\Http\Resources\EmailCollection;
 use App\Http\Requests\StoreEmail;
 use App\MailTracker\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
 use Illuminate\Support\Facades\Auth;
@@ -19,27 +21,27 @@ class EmailController extends Controller
     {
         $emails = $this->emails->forUser(Auth::user());
 
-        return response($emails);
+        return new EmailCollection($emails);
     }
 
     public function store(StoreEmail $request)
     {
         $email = $this->emails->createForUser(Auth::user(), $request->toArray());
 
-        return response($email, 201);
+        return new Email($email);
     }
 
     public function show(string $id)
     {
         $email = $this->emails->findOrFail($id);
 
-        return response($email);
+        return new Email($email);
     }
 
     public function showParsed(string $id)
     {
         $email = $this->emails->findParsedOrFail($id);
 
-        return response($email->parsed_content);
+        return (new Email($email))->parsedContent();
     }
 }
