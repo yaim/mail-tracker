@@ -4,8 +4,12 @@ namespace App\Providers;
 
 use App\Events\Emails\EmailCreated;
 use App\Events\Emails\EmailParsed;
+use App\Events\Emails\EmailOpened;
+use App\Events\Links\LinkOpened;
 use App\Listeners\Emails\ParseCreatedEmail;
 use App\Listeners\Emails\SendParsedEmail;
+use App\Listeners\Tracking\IncreaseEmailClick;
+use App\Listeners\Tracking\IncreaseLinkClick;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -22,6 +26,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         EmailParsed::class => [
             SendParsedEmail::class,
+        ],
+        EmailOpened::class => [
+            IncreaseEmailClick::class,
+        ],
+        LinkOpened::class => [
+            IncreaseLinkClick::class,
         ],
     ];
 

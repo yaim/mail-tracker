@@ -2,9 +2,10 @@
 
 namespace App\MailTracker;
 
+use App\MailTracker\Database\Contracts\Clickable;
 use App\MailTracker\Database\Eloquent\UuidModel as Model;
 
-class Email extends Model
+class Email extends Model implements Clickable
 {
     protected $dates = [
         'parsed_at',

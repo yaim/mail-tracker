@@ -179,6 +179,7 @@ return [
         App\Providers\LinkServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TrackingServiceProvider::class,
 
     ],
 
