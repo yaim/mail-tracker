@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Events\EmailCreated;
-use App\Events\EmailParsed;
-use App\Listeners\ParseCreatedEmail;
-use App\Listeners\SendParsedEmail;
+use App\Events\Emails\EmailCreated;
+use App\Events\Emails\EmailParsed;
+use App\Listeners\Emails\ParseCreatedEmail;
+use App\Listeners\Emails\SendParsedEmail;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 

@@ -2,7 +2,7 @@
 
 namespace App\MailTracker\Services\Email;
 
-use App\Events\EmailParsed;
+use App\Events\Emails\EmailParsed;
 use App\MailTracker\Email;
 use App\MailTracker\Repositories\Contracts\LinkRepositoryInterface as LinkRepository;
 use App\MailTracker\Services\Contracts\Email\EmailParserInterface;

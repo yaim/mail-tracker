@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Emails;
 
-use App\Events\EmailCreated;
+use App\Events\Emails\EmailCreated;
 use App\Jobs\ParseEmail;
 
 class ParseCreatedEmail

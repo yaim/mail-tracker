@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Emails;
 
 use App\MailTracker\Email;
 

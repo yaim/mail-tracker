@@ -2,7 +2,7 @@
 
 namespace App\MailTracker\Services\Email;
 
-use App\Events\EmailCreated;
+use App\Events\Emails\EmailCreated;
 use App\MailTracker\Email;
 use App\MailTracker\User;
 use App\MailTracker\Services\Contracts\Email\EmailCreatorInterface;
