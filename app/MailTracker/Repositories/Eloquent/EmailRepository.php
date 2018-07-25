@@ -39,13 +39,16 @@ class EmailRepository extends AbstractRepository implements EmailRepositoryInter
 
     public function forUser(User $user) : Collection
     {
-        return $user->emails;
+        return $user->emails()
+                    ->orderBy('created_at', 'desc')
+                    ->get();
     }
 
     public function getRawEmails(int $limit = -1) : Collection
     {
         return $this->model
                     ->whereNull('parsed_at')
+                    ->orderBy('created_at', 'desc')
                     ->limit($limit)
                     ->get();
     }
@@ -55,6 +58,7 @@ class EmailRepository extends AbstractRepository implements EmailRepositoryInter
         return $this->model
                     ->whereNotNull('parsed_at')
                     ->whereNull('sent_at')
+                    ->orderBy('created_at', 'desc')
                     ->limit($limit)
                     ->get();
     }
