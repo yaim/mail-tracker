@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Events\Emails\EmailOpened;
 use App\Events\Links\LinkOpened;
 use App\Http\Responses\TransparentPixelResponse;
-use App\MailTracker\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
-use App\MailTracker\Repositories\Contracts\LinkRepositoryInterface as LinkRepository;
+use App\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
+use App\Repositories\Contracts\LinkRepositoryInterface as LinkRepository;
 
 class TrackingController extends Controller
 {

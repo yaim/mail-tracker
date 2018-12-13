@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\MailTracker\Email;
-use App\MailTracker\Services\Contracts\Email\EmailParserInterface as EmailParser;
+use App\Email;
+use App\Services\Contracts\Email\EmailParserInterface as EmailParser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

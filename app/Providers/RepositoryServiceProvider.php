@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\MailTracker\Repositories\Contracts\EmailRepositoryInterface;
-use App\MailTracker\Repositories\Contracts\LinkRepositoryInterface;
-use App\MailTracker\Repositories\Eloquent\EmailRepository;
-use App\MailTracker\Repositories\Eloquent\LinkRepository;
+use App\Repositories\Contracts\EmailRepositoryInterface;
+use App\Repositories\Contracts\LinkRepositoryInterface;
+use App\Repositories\Eloquent\EmailRepository;
+use App\Repositories\Eloquent\LinkRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Email;
 use App\Http\Resources\EmailCollection;
 use App\Http\Requests\StoreEmail;
-use App\MailTracker\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
+use App\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
 use Illuminate\Support\Facades\Auth;
 
 class EmailController extends Controller

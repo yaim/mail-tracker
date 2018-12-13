@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\MailTracker\Services\Contracts\Tracking\TrackingStatsUpdaterInterface;
-use App\MailTracker\Services\Tracking\TrackingStatsUpdater;
+use App\Services\Contracts\Tracking\TrackingStatsUpdaterInterface;
+use App\Services\Tracking\TrackingStatsUpdater;
 use Illuminate\Support\ServiceProvider;
 
 class TrackingServiceProvider extends ServiceProvider

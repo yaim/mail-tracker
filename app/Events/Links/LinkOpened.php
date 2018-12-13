@@ -2,7 +2,7 @@
 
 namespace App\Events\Links;
 
-use App\MailTracker\Link;
+use App\Link;
 
 class LinkOpened
 {

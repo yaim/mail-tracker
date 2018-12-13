@@ -2,7 +2,7 @@
 
 namespace App\Events\Emails;
 
-use App\MailTracker\Email;
+use App\Email;
 
 class EmailCreated
 {

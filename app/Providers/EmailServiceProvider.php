@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\MailTracker\Services\Contracts\Email\EmailCreatorInterface;
-use App\MailTracker\Services\Contracts\Email\EmailParserInterface;
-use App\MailTracker\Services\Contracts\Email\EmailSenderInterface;
-use App\MailTracker\Services\Contracts\Email\EmailValidatorInterface;
-use App\MailTracker\Services\Email\EmailCreator;
-use App\MailTracker\Services\Email\EmailParser;
-use App\MailTracker\Services\Email\EmailSender;
-use App\MailTracker\Services\Email\EmailValidator;
+use App\Services\Contracts\Email\EmailCreatorInterface;
+use App\Services\Contracts\Email\EmailParserInterface;
+use App\Services\Contracts\Email\EmailSenderInterface;
+use App\Services\Contracts\Email\EmailValidatorInterface;
+use App\Services\Email\EmailCreator;
+use App\Services\Email\EmailParser;
+use App\Services\Email\EmailSender;
+use App\Services\Email\EmailValidator;
 use Illuminate\Support\ServiceProvider;
 
 class EmailServiceProvider extends ServiceProvider
