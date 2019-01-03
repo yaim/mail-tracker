@@ -2,7 +2,6 @@
 
 namespace App\Services\Email;
 
-use App\Events\Emails\EmailCreated;
 use App\Email;
 use App\User;
 use App\Services\Contracts\Email\EmailCreatorInterface;
@@ -24,8 +23,6 @@ class EmailCreator implements EmailCreatorInterface
 
         $this->email->fill($data);
         $this->email->save();
-
-        event(new EmailCreated($this->email));
 
         return $this->email;
     }

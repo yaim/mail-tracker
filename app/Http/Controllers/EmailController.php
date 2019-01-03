@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Emails\EmailCreated;
 use App\Http\Resources\Email;
 use App\Http\Resources\EmailCollection;
 use App\Http\Requests\StoreEmail;
@@ -27,6 +28,8 @@ class EmailController extends Controller
     public function store(StoreEmail $request)
     {
         $email = $this->emails->createForUser(Auth::user(), $request->toArray());
+
+        event(new EmailCreated($email));
 
         return new Email($email);
     }
