@@ -9,4 +9,6 @@ interface AbstractRepositoryInterface {
     public function create(array $data);
 
     public function findOrFail(string $id);
+
+    public function count();
 }

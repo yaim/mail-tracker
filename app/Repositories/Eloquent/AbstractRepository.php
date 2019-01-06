@@ -22,4 +22,9 @@ abstract class AbstractRepository implements AbstractRepositoryInterface {
         return $this->model->findOrFail($id);
     }
 
+    public function count()
+    {
+        return $this->model->count();
+    }
+
 }
