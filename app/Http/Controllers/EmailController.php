@@ -36,7 +36,7 @@ class EmailController extends Controller
 
     public function show(string $id)
     {
-        $email = $this->emails->findOrFail($id);
+        $email = $this->emails->findOrFailForUser($id, Auth::user());
 
         return new Email($email);
     }

@@ -44,6 +44,14 @@ class EmailRepository extends AbstractRepository implements EmailRepositoryInter
                     ->get();
     }
 
+    public function findOrFailForUser(string $id, User $user) : Email
+    {
+        return $this->model
+                    ->where($this->model->getKeyName(), $id)
+                    ->where('user_id', $user->id)
+                    ->firstOrFail();
+    }
+
     public function getRawEmails(int $limit = -1) : Collection
     {
         return $this->model
