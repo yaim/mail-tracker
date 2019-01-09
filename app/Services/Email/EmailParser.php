@@ -56,7 +56,8 @@ class EmailParser implements EmailParserInterface
         $pixel = $this->domParser->createElement("img");
         $pixel->setAttribute('src', route('tracking.email', $uuid));
 
-        $table = $this->domParser->getElementsByTagName('table')->item(0);
+        $table = $this->domParser->getElementsByTagName('table')->item(0)
+              ?? $this->domParser->childNodes->item(0);
         $table->parentNode->insertBefore($pixel, $table);
     }
 
