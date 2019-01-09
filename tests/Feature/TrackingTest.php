@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Database\Contracts\Clickable;
 use App\Email;
 use App\Link;
 use App\Services\Contracts\Tracking\TrackingStatsReporterInterface as TrackingReporter;
@@ -21,17 +22,24 @@ class TrackingTest extends TestCase
         $this->reporter = resolve(TrackingReporter::class);
     }
 
+    protected function assertCountClicks(Clickable $clickable, $count)
+    {
+        $this->assertEquals($this->reporter->countClicks($clickable), $count);
+
+        return $this;
+    }
+
     public function testLoadingTrackingImageWouldIncreaseEmailClickCount()
     {
         $email = factory(Email::class)->states('parsed')->create([
             'id' => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
         ]);
 
-        $this->assertEquals($this->reporter->countClicks($email), 0);
+        $this->assertCountClicks($email, 0);
         $response = $this->get(route('tracking.email', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'));
 
         $response->assertStatus(200);
-        $this->assertEquals($this->reporter->countClicks($email), 1);
+        $this->assertCountClicks($email, 1);
     }
 
     public function testLoadingWrongTrackingImageWouldNotIncreaseEmailClickCount()
@@ -40,11 +48,11 @@ class TrackingTest extends TestCase
             'id' => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
         ]);
 
-        $this->assertEquals($this->reporter->countClicks($email), 0);
+        $this->assertCountClicks($email, 0);
         $response = $this->get(route('tracking.email', 'zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz'));
 
         $response->assertStatus(404);
-        $this->assertEquals($this->reporter->countClicks($email), 0);
+        $this->assertCountClicks($email, 0);
     }
 
     public function testLoadingTrackingImageMultipleTimesWouldIncreaseEmailClickCount()
@@ -53,13 +61,13 @@ class TrackingTest extends TestCase
             'id' => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
         ]);
 
-        $this->assertEquals($this->reporter->countClicks($email), 0);
+        $this->assertCountClicks($email, 0);
 
         for ($i = 1; $i <= 5; $i++) { 
             $this->get(route('tracking.email', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'));
         }
 
-        $this->assertEquals($this->reporter->countClicks($email), 5);
+        $this->assertCountClicks($email, 5);
     }
 
     public function testLoadingTrackingLinkWouldIncreaseLinkClickCount()
@@ -68,11 +76,11 @@ class TrackingTest extends TestCase
             'id' => 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy',
         ]);
 
-        $this->assertEquals($this->reporter->countClicks($link), 0);
+        $this->assertCountClicks($link, 0);
 
         $this->get(route('tracking.links', 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'));
 
-        $this->assertEquals($this->reporter->countClicks($link), 1);
+        $this->assertCountClicks($link, 1);
     }
 
     public function testLoadingTrackingLinkMultipleTimesWouldIncreaseLinkClickCount()
@@ -81,13 +89,13 @@ class TrackingTest extends TestCase
             'id' => 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy',
         ]);
 
-        $this->assertEquals($this->reporter->countClicks($link), 0);
+        $this->assertCountClicks($link, 0);
 
         for ($i = 1; $i <= 5; $i++) { 
             $this->get(route('tracking.links', 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'));
         }
 
-        $this->assertEquals($this->reporter->countClicks($link), 5);
+        $this->assertCountClicks($link, 5);
     }
 
 
