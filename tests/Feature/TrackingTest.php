@@ -28,9 +28,9 @@ class TrackingTest extends TestCase
         ]);
 
         $this->assertEquals($this->reporter->countClicks($email), 0);
+        $response = $this->get(route('tracking.email', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'));
 
-        $this->get(route('tracking.email', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'));
-
+        $response->assertStatus(200);
         $this->assertEquals($this->reporter->countClicks($email), 1);
     }
 
