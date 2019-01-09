@@ -34,6 +34,19 @@ class TrackingTest extends TestCase
         $this->assertEquals($this->reporter->countClicks($email), 1);
     }
 
+    public function testLoadingWrongTrackingImageWouldNotIncreaseEmailClickCount()
+    {
+        $email = factory(Email::class)->states('parsed')->create([
+            'id' => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+        ]);
+
+        $this->assertEquals($this->reporter->countClicks($email), 0);
+        $response = $this->get(route('tracking.email', 'zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz'));
+
+        $response->assertStatus(404);
+        $this->assertEquals($this->reporter->countClicks($email), 0);
+    }
+
     public function testLoadingTrackingImageMultipleTimesWouldIncreaseEmailClickCount()
     {
         $email = factory(Email::class)->states('parsed')->create([
