@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Mail\RawMailable;
 use App\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class PostingEmailTest extends TestCase
@@ -66,6 +68,8 @@ class PostingEmailTest extends TestCase
 
     public function testAuthenticatedUserCanPostEmail()
     {
+        Mail::fake();
+
         $responseEmailData = $this->getEmailParams([
             'from_email_address' => null,
             'to_email_address'   => null,
@@ -80,6 +84,16 @@ class PostingEmailTest extends TestCase
         $response->assertStatus(201)->assertJson([
             'data' => $responseEmailData,
         ]);
+
+        $emailID = $response->decodeResponseJson()['data']['id'];
+
+        Mail::assertSent(RawMailable::class, function ($mailable) use($emailID) {
+            $mailable->build();
+
+            return $mailable->hasFrom('j.cash@example.com')
+                   && $mailable->hasTo('j.carter.cash@example.com')
+                   && $mailable->getParsedEmail()->id == $emailID;
+        });
     }
 
     public function testFromEmailAddressIsRequiredToPostEmail()

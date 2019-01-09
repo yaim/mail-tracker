@@ -3,6 +3,7 @@
 namespace App\Services\Email;
 
 use App\Email;
+use App\Mail\RawMailable; 
 use App\Services\Contracts\Email\EmailSenderInterface;
 use App\Services\Contracts\Email\EmailValidatorInterface as EmailValidator;
 use Mail;
@@ -35,14 +36,7 @@ class EmailSender implements EmailSenderInterface
 
     protected function process()
     {
-        $data = $this->getSendingData();
-
-        Mail::send([], [], function($message) use ($data) {
-            $message->from($data['from']);
-            $message->to($data['to']);
-            $message->subject($data['subject']);
-            $message->setBody($data['content'], 'text/html');
-        });
+        Mail::send(new RawMailable($this->email));
 
         $this->email->sent_at = now();
         $this->email->save();
