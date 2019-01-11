@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\Emails\EmailCreated;
-use App\Http\Resources\Email;
-use App\Http\Resources\EmailCollection;
+use App\Http\Resources\Email as EmailResource;
+use App\Http\Resources\EmailCollection as EmailCollectionResource;
 use App\Http\Requests\StoreEmail;
 use App\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +22,7 @@ class EmailController extends Controller
     {
         $emails = $this->emails->forUser(Auth::user());
 
-        return new EmailCollection($emails);
+        return new EmailCollectionResource($emails);
     }
 
     public function store(StoreEmail $request)
@@ -31,20 +31,20 @@ class EmailController extends Controller
 
         event(new EmailCreated($email));
 
-        return new Email($email);
+        return new EmailResource($email);
     }
 
     public function show(string $id)
     {
         $email = $this->emails->findOrFailForUser($id, Auth::user());
 
-        return new Email($email);
+        return new EmailResource($email);
     }
 
     public function showParsed(string $id)
     {
         $email = $this->emails->findParsedOrFail($id);
 
-        return (new Email($email))->parsedContent();
+        return (new EmailResource($email))->parsedContent();
     }
 }
