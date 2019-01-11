@@ -1,6 +1,7 @@
 <?php
 
 use App\Email;
+use App\User;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
@@ -11,7 +12,7 @@ $factory->define(Email::class, function (Faker $faker) {
         'to_email_address'   => $faker->safeEmail,
         'subject'            => $faker->text,
         'content'            => $faker->randomHTML,
-        'user_id'            => 1,
+        'user_id'            => factory(User::class)->create()->id,
     ];
 });
 
