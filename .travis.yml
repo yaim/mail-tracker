@@ -1,0 +1,16 @@
+language: php
+
+php:
+  - 7.2
+  - 7.3
+
+before_script:
+  - cp .env.travis .env
+  - mysql -e 'create database mail_tracker;'
+  - composer self-update
+  - composer install --no-interaction
+  - php artisan migrate
+  - php artisan passport:install
+
+script:
+  - ./vendor/bin/phpunit --configuration phpunit-travis.xml
