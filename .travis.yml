@@ -13,4 +13,7 @@ before_script:
   - php artisan passport:install
 
 script:
-  - ./vendor/bin/phpunit --configuration phpunit-travis.xml
+  - ./vendor/bin/phpunit --configuration phpunit-travis.xml --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
