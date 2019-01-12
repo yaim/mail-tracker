@@ -14,7 +14,7 @@ abstract class UuidModel extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
+        static::creating(function($model) {
             $keyName = $model->getKeyName();
             $model->$keyName = !isset($model->$keyName) ? Uuid::uuid4()->toString() : $model->$keyName;
         });

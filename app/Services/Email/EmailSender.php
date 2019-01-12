@@ -29,9 +29,9 @@ class EmailSender implements EmailSenderInterface
     protected function validate()
     {
         $this->validator
-             ->setModel($this->email)
-             ->checkParsed()
-             ->checkNotSent();
+                ->setModel($this->email)
+                ->checkParsed()
+                ->checkNotSent();
     }
 
     protected function process()

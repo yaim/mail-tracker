@@ -8,7 +8,7 @@ class EmailCollection extends ResourceCollection
 {
     public function toArray($request)
     {
-        return $this->collection->transform(function ($email) {
+        return $this->collection->transform(function($email) {
             return [
                 'id'         => $email->id,
                 'subject'    => $email->subject,

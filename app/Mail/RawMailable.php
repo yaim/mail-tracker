@@ -22,8 +22,8 @@ class RawMailable extends Mailable
     public function build()
     {
         $this->from($this->parsedEmail->from_email_address)
-             ->to($this->parsedEmail->to_email_address)
-             ->subject($this->parsedEmail->subject);
+                ->to($this->parsedEmail->to_email_address)
+                ->subject($this->parsedEmail->subject);
     }
 
     /**
@@ -35,18 +35,18 @@ class RawMailable extends Mailable
      */
     public function send(MailerContract $mailer)
     {
-        Container::getInstance()->call([$this, 'build']);
+        Container::getInstance()->call([ $this, 'build' ]);
 
         $content = $this->parsedEmail->parsed_content;
 
-        $mailer->send([], [], function ($message) use ($content) {
+        $mailer->send([ ], [ ], function($message) use ($content) {
             $message->setBody($content, 'text/html');
 
             $this->buildFrom($message)
-                 ->buildRecipients($message)
-                 ->buildSubject($message)
-                 ->buildAttachments($message)
-                 ->runCallbacks($message);
+                    ->buildRecipients($message)
+                    ->buildSubject($message)
+                    ->buildAttachments($message)
+                    ->runCallbacks($message);
         });
     }
 

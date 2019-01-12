@@ -36,8 +36,8 @@ class EmailParser implements EmailParserInterface
     protected function validate()
     {
         $this->validator
-             ->setModel($this->email)
-             ->checkNotParsed();
+                ->setModel($this->email)
+                ->checkNotParsed();
     }
 
     protected function process()
@@ -57,18 +57,18 @@ class EmailParser implements EmailParserInterface
         $pixel->setAttribute('src', route('tracking.email', $uuid));
 
         $table = $this->domParser->getElementsByTagName('table')->item(0)
-              ?? $this->domParser->childNodes->item(0);
+                ?? $this->domParser->childNodes->item(0);
         $table->parentNode->insertBefore($pixel, $table);
     }
 
     protected function setTrackingLinks()
     {
-        $links = [];
+        $links = [ ];
 
         foreach ($this->domParser->getElementsByTagName('a') as $dom) {
             $uuid = Uuid::uuid4()->toString();
 
-            $links[] = [
+            $links[ ] = [
                 'address' => $dom->getAttribute('href'),
                 'id'      => $uuid,
             ];
