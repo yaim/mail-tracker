@@ -1,0 +1,27 @@
+build:
+    environment:
+        php: '7.2'
+        mysql: '5.7'
+        node: '8.1'
+        hosts:
+            mail-tracker.dev: '127.0.0.1'
+        variables:
+            APP_URL: 'http://mail-tracker.dev'
+            API_HOST: 'mail-tracker.dev'
+
+    dependencies:
+        before:
+            - mysql -e 'create database mail_tracker;'
+        override:
+            - cp .env.ci-testing .env
+            - composer self-update
+            - composer install --no-interaction
+            - php artisan migrate
+            - php artisan passport:install
+    tests:
+        override:
+            -
+                command: vendor/bin/phpunit  --configuration phpunit-ci-testing.xml --coverage-clover=mail-tracker-coverage
+                coverage:
+                    file: mail-tracker-coverage
+                    format: clover

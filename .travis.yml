@@ -5,7 +5,7 @@ php:
   - 7.3
 
 before_script:
-  - cp .env.travis .env
+  - cp .env.ci-testing .env
   - mysql -e 'create database mail_tracker;'
   - composer self-update
   - composer install --no-interaction
@@ -13,7 +13,7 @@ before_script:
   - php artisan passport:install
 
 script:
-  - ./vendor/bin/phpunit --configuration phpunit-travis.xml --coverage-clover=coverage.xml
+  - ./vendor/bin/phpunit --configuration phpunit-ci-testing.xml --coverage-clover=coverage.xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
