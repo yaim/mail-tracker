@@ -12,5 +12,4 @@ class EmailParsed
     {
         $this->email = $email;
     }
-
 }

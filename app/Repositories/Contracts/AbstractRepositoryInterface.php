@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Contracts;
 
-interface AbstractRepositoryInterface {
-
+interface AbstractRepositoryInterface
+{
     public function getModel();
 
     public function create(array $data);

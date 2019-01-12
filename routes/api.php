@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +14,6 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
     Route::resource('email', 'EmailController')->except([
-        'create', 'edit', 'update', 'destroy'
+        'create', 'edit', 'update', 'destroy',
     ]);
 });

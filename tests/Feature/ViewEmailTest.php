@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Email;
-use App\Http\Resources\EmailCollection as EmailCollectionResource;
 use App\Http\Resources\Email as EmailResource;
+use App\Http\Resources\EmailCollection as EmailCollectionResource;
 use App\Link;
 use App\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
 use App\User;
@@ -69,7 +69,7 @@ class ViewEmailTest extends TestCase
 
     public function testUserCanGetOwnedPostedEmailData()
     {
-        $user    = factory(User::class)->create();
+        $user = factory(User::class)->create();
         $emailId = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
 
         $email = (new EmailResource(factory(Email::class)->states('parsed')->create([
@@ -127,8 +127,8 @@ class ViewEmailTest extends TestCase
 
     public function testUserCannotSeeOthersPostedEmails()
     {
-        $june    = factory(User::class)->create(['id' => 100]);
-        $johnny  = factory(User::class)->create(['id' => 101]);
+        $june = factory(User::class)->create(['id' => 100]);
+        $johnny = factory(User::class)->create(['id' => 101]);
         $emailId = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
 
         factory(Email::class)->states('parsed')->create([

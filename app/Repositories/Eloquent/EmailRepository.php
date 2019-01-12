@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Email;
 use App\Repositories\Contracts\EmailRepositoryInterface;
 use App\Services\Contracts\Email\EmailCreatorInterface as EmailCreator;
-use App\Email;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -21,7 +21,7 @@ class EmailRepository extends AbstractRepository implements EmailRepositoryInter
 
     public function getModel()
     {
-        return new Email;
+        return new Email();
     }
 
     public function createForUser(User $user, array $data) : Email

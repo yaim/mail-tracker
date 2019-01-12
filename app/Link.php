@@ -14,7 +14,7 @@ class Link extends Model implements Clickable
 
     public function email()
     {
-    	return $this->belongsTo(Email::class);
+        return $this->belongsTo(Email::class);
     }
 
     public function clicks()

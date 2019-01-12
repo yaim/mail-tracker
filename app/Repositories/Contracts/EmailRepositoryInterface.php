@@ -6,8 +6,8 @@ use App\Email;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
 
-interface EmailRepositoryInterface extends AbstractRepositoryInterface {
-
+interface EmailRepositoryInterface extends AbstractRepositoryInterface
+{
     public function createForUser(User $user, array $data) : Email;
 
     public function findParsedOrFail(string $id) : Email;

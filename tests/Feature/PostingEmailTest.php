@@ -26,7 +26,7 @@ class PostingEmailTest extends TestCase
     {
         $testCase = $this;
 
-        if($byUser) {
+        if ($byUser) {
             $testCase = $testCase->actingAs(factory(User::class)->create(), 'api');
         }
 
@@ -87,7 +87,7 @@ class PostingEmailTest extends TestCase
 
         $emailID = $response->decodeResponseJson()['data']['id'];
 
-        Mail::assertSent(RawMailable::class, function ($mailable) use($emailID) {
+        Mail::assertSent(RawMailable::class, function ($mailable) use ($emailID) {
             $mailable->build();
 
             return $mailable->hasFrom('j.cash@example.com')

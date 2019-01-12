@@ -6,12 +6,11 @@ use App\Email;
 
 interface EmailValidatorInterface
 {
-	public function setModel(Email $email);
+    public function setModel(Email $email);
 
-	public function checkNotParsed();
+    public function checkNotParsed();
 
-	public function checkParsed();
+    public function checkParsed();
 
-	public function checkNotSent();
-
+    public function checkNotSent();
 }

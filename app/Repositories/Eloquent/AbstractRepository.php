@@ -4,7 +4,8 @@ namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\AbstractRepositoryInterface;
 
-abstract class AbstractRepository implements AbstractRepositoryInterface {
+abstract class AbstractRepository implements AbstractRepositoryInterface
+{
     protected $model;
 
     public function __construct()
@@ -26,5 +27,4 @@ abstract class AbstractRepository implements AbstractRepositoryInterface {
     {
         return $this->model->count();
     }
-
 }

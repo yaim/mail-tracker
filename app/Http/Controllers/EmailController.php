@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Events\Emails\EmailCreated;
+use App\Http\Requests\StoreEmail;
 use App\Http\Resources\Email as EmailResource;
 use App\Http\Resources\EmailCollection as EmailCollectionResource;
-use App\Http\Requests\StoreEmail;
 use App\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
 use Illuminate\Support\Facades\Auth;
 
 class EmailController extends Controller
 {
-    protected $emails; 
+    protected $emails;
 
     public function __construct(EmailRepository $emails)
     {
