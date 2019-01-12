@@ -2,10 +2,10 @@
 
 namespace App\Services\Email;
 
+use App\Email;
 use App\Exceptions\EmailAlreadyParsedException;
 use App\Exceptions\EmailAlreadySentException;
 use App\Exceptions\EmailNotParsedException;
-use App\Email;
 use App\Services\Contracts\Email\EmailValidatorInterface;
 
 class EmailValidator implements EmailValidatorInterface
@@ -45,5 +45,4 @@ class EmailValidator implements EmailValidatorInterface
 
         return $this;
     }
-
 }

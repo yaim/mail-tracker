@@ -12,5 +12,4 @@ class EmailCreated
     {
         $this->email = $email;
     }
-
 }

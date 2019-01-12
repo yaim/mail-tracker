@@ -3,8 +3,8 @@
 namespace App\Services\Email;
 
 use App\Email;
-use App\User;
 use App\Services\Contracts\Email\EmailCreatorInterface;
+use App\User;
 
 class EmailCreator implements EmailCreatorInterface
 {
@@ -15,7 +15,7 @@ class EmailCreator implements EmailCreatorInterface
         $this->email = $email;
     }
 
-    public function create( array $data, User $user = null)
+    public function create(array $data, User $user = null)
     {
         if ($user) {
             $this->email->user_id = $user->id;
@@ -26,5 +26,4 @@ class EmailCreator implements EmailCreatorInterface
 
         return $this->email;
     }
-
 }

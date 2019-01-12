@@ -9,7 +9,7 @@ class Email extends Model implements Clickable
 {
     protected $dates = [
         'parsed_at',
-        'sent_at'
+        'sent_at',
     ];
 
     protected $fillable = [

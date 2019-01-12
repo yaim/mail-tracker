@@ -3,11 +3,10 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
 class RawMailable extends Mailable
 {
@@ -30,16 +29,17 @@ class RawMailable extends Mailable
     /**
      * Overwrite Mailable@send to avoid using Blade.
      *
-     * @param  \Illuminate\Contracts\Mail\Mailer  $mailer
+     * @param \Illuminate\Contracts\Mail\Mailer $mailer
+     *
      * @return void
      */
     public function send(MailerContract $mailer)
     {
         Container::getInstance()->call([$this, 'build']);
- 
+
         $content = $this->parsedEmail->parsed_content;
 
-        $mailer->send([], [], function ($message) use($content) {
+        $mailer->send([], [], function ($message) use ($content) {
             $message->setBody($content, 'text/html');
 
             $this->buildFrom($message)
@@ -54,5 +54,4 @@ class RawMailable extends Mailable
     {
         return $this->parsedEmail;
     }
-
 }

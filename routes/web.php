@@ -12,14 +12,14 @@
 */
 
 Route::middleware('auth')->group(function () {
-	Route::get('/home', 'HomeController@index')->name('home.index');
+    Route::get('/home', 'HomeController@index')->name('home.index');
 });
 
 Route::get('/', 'HomeController@welcome')->name('home.welcome');
 Route::get('email/{id}', 'EmailController@showParsed')->name('email.show-parsed');
 Route::prefix('tracking')->name('tracking.')->group(function () {
-	Route::get('email/{uuid}.gif', 'TrackingController@email')->name('email');
-	Route::get('links/{uuid}', 'TrackingController@link')->name('links');
+    Route::get('email/{uuid}.gif', 'TrackingController@email')->name('email');
+    Route::get('links/{uuid}', 'TrackingController@link')->name('links');
 });
 
 Auth::routes();

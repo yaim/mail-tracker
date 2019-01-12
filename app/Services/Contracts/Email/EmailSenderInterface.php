@@ -6,7 +6,5 @@ use App\Email;
 
 interface EmailSenderInterface
 {
-
     public function send(Email $email);
-
 }

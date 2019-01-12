@@ -7,8 +7,8 @@ use App\Link;
 use App\Repositories\Contracts\LinkRepositoryInterface;
 use App\Services\Contracts\Link\LinkCreatorInterface as LinkCreator;
 
-class LinkRepository extends AbstractRepository implements LinkRepositoryInterface {
-
+class LinkRepository extends AbstractRepository implements LinkRepositoryInterface
+{
     protected $creator;
 
     public function __construct(LinkCreator $creator)
@@ -20,12 +20,11 @@ class LinkRepository extends AbstractRepository implements LinkRepositoryInterfa
 
     public function getModel()
     {
-        return new Link;
+        return new Link();
     }
 
     public function createManyForEmail(Email $email, array $data)
     {
         return $this->creator->createMany($data, $email);
     }
-
 }

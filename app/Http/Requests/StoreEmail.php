@@ -27,9 +27,7 @@ class StoreEmail extends FormRequest
             'from_email_address' => 'email|required|max:255',
             'to_email_address'   => 'email|required|max:255',
             'subject'            => 'required|max:255',
-            'content'            => 'required'
+            'content'            => 'required',
         ];
     }
-
-
 }

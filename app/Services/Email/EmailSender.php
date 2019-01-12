@@ -3,7 +3,7 @@
 namespace App\Services\Email;
 
 use App\Email;
-use App\Mail\RawMailable; 
+use App\Mail\RawMailable;
 use App\Services\Contracts\Email\EmailSenderInterface;
 use App\Services\Contracts\Email\EmailValidatorInterface as EmailValidator;
 use Mail;
@@ -48,8 +48,7 @@ class EmailSender implements EmailSenderInterface
             'from'    => $this->email->from_email_address,
             'to'      => $this->email->to_email_address,
             'subject' => $this->email->subject,
-            'content' => $this->email->parsed_content
+            'content' => $this->email->parsed_content,
         ];
     }
-
 }

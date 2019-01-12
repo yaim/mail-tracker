@@ -6,7 +6,5 @@ use App\Database\Contracts\Clickable;
 
 interface TrackingStatsUpdaterInterface
 {
-
     public function increaseClick(Clickable $clickable);
-
 }

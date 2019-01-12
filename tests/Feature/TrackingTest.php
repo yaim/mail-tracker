@@ -63,7 +63,7 @@ class TrackingTest extends TestCase
 
         $this->assertCountClicks($email, 0);
 
-        for ($i = 1; $i <= 5; $i++) { 
+        for ($i = 1; $i <= 5; $i++) {
             $this->get(route('tracking.email', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'));
         }
 
@@ -91,12 +91,10 @@ class TrackingTest extends TestCase
 
         $this->assertCountClicks($link, 0);
 
-        for ($i = 1; $i <= 5; $i++) { 
+        for ($i = 1; $i <= 5; $i++) {
             $this->get(route('tracking.links', 'yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy'));
         }
 
         $this->assertCountClicks($link, 5);
     }
-
-
 }

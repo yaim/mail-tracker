@@ -2,8 +2,8 @@
 
 namespace App\Services\Email;
 
-use App\Events\Emails\EmailParsed;
 use App\Email;
+use App\Events\Emails\EmailParsed;
 use App\Repositories\Contracts\LinkRepositoryInterface as LinkRepository;
 use App\Services\Contracts\Email\EmailParserInterface;
 use App\Services\Contracts\Email\EmailValidatorInterface as EmailValidator;
@@ -53,7 +53,7 @@ class EmailParser implements EmailParserInterface
 
     protected function setTrackingPixel(string $uuid)
     {
-        $pixel = $this->domParser->createElement("img");
+        $pixel = $this->domParser->createElement('img');
         $pixel->setAttribute('src', route('tracking.email', $uuid));
 
         $table = $this->domParser->getElementsByTagName('table')->item(0)
@@ -65,12 +65,12 @@ class EmailParser implements EmailParserInterface
     {
         $links = [];
 
-        foreach($this->domParser->getElementsByTagName('a') as $dom) {
+        foreach ($this->domParser->getElementsByTagName('a') as $dom) {
             $uuid = Uuid::uuid4()->toString();
 
             $links[] = [
                 'address' => $dom->getAttribute('href'),
-                'id'      => $uuid
+                'id'      => $uuid,
             ];
 
             $dom->setAttribute('href', route('tracking.links', $uuid));
@@ -78,5 +78,4 @@ class EmailParser implements EmailParserInterface
 
         $this->links->createManyForEmail($this->email, $links);
     }
-
 }
