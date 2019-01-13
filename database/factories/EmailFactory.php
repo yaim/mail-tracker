@@ -12,7 +12,7 @@ $factory->define(Email::class, function (Faker $faker) {
         'to_email_address'   => $faker->safeEmail,
         'subject'            => $faker->text,
         'content'            => $faker->randomHTML,
-        'user_id'            => factory(User::class)->create()->id,
+        'user_id'            => factory(User::class),
     ];
 });
 
