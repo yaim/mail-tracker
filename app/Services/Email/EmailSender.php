@@ -41,14 +41,4 @@ class EmailSender implements EmailSenderInterface
         $this->email->sent_at = now();
         $this->email->save();
     }
-
-    protected function getSendingData()
-    {
-        return [
-            'from'    => $this->email->from_email_address,
-            'to'      => $this->email->to_email_address,
-            'subject' => $this->email->subject,
-            'content' => $this->email->parsed_content,
-        ];
-    }
 }
