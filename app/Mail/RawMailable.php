@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Database\Contracts\Mailable as MailableModel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
@@ -12,18 +13,18 @@ class RawMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $parsedEmail;
+    protected $email;
 
-    public function __construct($parsedEmail)
+    public function __construct(MailableModel $email)
     {
-        $this->parsedEmail = $parsedEmail;
+        $this->email = $email;
     }
 
     public function build()
     {
-        $this->from($this->parsedEmail->from_email_address)
-             ->to($this->parsedEmail->to_email_address)
-             ->subject($this->parsedEmail->subject);
+        $this->from($this->email->getFrom())
+             ->to($this->email->getTo())
+             ->subject($this->email->getSubject());
     }
 
     /**
@@ -37,7 +38,7 @@ class RawMailable extends Mailable
     {
         Container::getInstance()->call([$this, 'build']);
 
-        $content = $this->parsedEmail->parsed_content;
+        $content = $this->email->getContent();
 
         $mailer->send([], [], function ($message) use ($content) {
             $message->setBody($content, 'text/html');
@@ -50,8 +51,8 @@ class RawMailable extends Mailable
         });
     }
 
-    public function getParsedEmail()
+    public function getEmail()
     {
-        return $this->parsedEmail;
+        return $this->email;
     }
 }

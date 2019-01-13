@@ -92,7 +92,7 @@ class PostingEmailTest extends TestCase
 
             return $mailable->hasFrom('j.cash@example.com')
                    && $mailable->hasTo('j.carter.cash@example.com')
-                   && $mailable->getParsedEmail()->id == $emailID;
+                   && $mailable->getEmail()->id == $emailID;
         });
     }
 
