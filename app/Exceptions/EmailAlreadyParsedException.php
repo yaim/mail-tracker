@@ -6,11 +6,4 @@ use Exception;
 
 class EmailAlreadyParsedException extends Exception
 {
-    public function report()
-    {
-    }
-
-    public function render($request)
-    {
-    }
 }
