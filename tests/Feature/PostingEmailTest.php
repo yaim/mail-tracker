@@ -88,7 +88,7 @@ class PostingEmailTest extends TestCase
         $emailID = $response->decodeResponseJson()['data']['id'];
 
         Mail::assertSent(RawMailable::class, function ($mailable) use ($emailID) {
-            $mailable->build();
+            $mailable->send(app('mailer'));
 
             return $mailable->hasFrom('j.cash@example.com')
                    && $mailable->hasTo('j.carter.cash@example.com')
