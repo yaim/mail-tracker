@@ -7,7 +7,7 @@ use App\Link;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ViewEmailTest extends TestCase
+class ViewParsedEmailsTest extends TestCase
 {
     use RefreshDatabase;
 
