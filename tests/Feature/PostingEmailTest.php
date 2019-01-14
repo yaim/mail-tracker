@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Mail\RawMailable;
 use App\Repositories\Contracts\EmailRepositoryInterface as EmailRepository;
+use App\Repositories\Contracts\LinkRepositoryInterface as LinkRepository;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
@@ -14,12 +15,14 @@ class PostingEmailTest extends TestCase
     use RefreshDatabase;
 
     protected $emailRepository;
+    protected $linkRepository;
 
     protected function setUp()
     {
         parent::setUp();
 
         $this->emailRepository = resolve(EmailRepository::class);
+        $this->linkRepository = resolve(LinkRepository::class);
     }
 
     protected function postEmail($params = [], $byUser = true)
@@ -75,24 +78,34 @@ class PostingEmailTest extends TestCase
             'to_email_address'   => null,
             'from'               => 'j.cash@example.com',
             'to'                 => 'j.carter.cash@example.com',
+            'content'            => 'Follow me on <a href="https://twitter.com/JohnnyCash">Twitter</a>, princess!',
         ]);
 
-        $response = $this->postEmail($this->getEmailParams());
+        $this->assertEquals($this->linkRepository->count(), 0);
+        $this->assertEquals($this->emailRepository->count(), 0);
+        $response = $this->postEmail($this->getEmailParams([
+            'content' => 'Follow me on <a href="https://twitter.com/JohnnyCash">Twitter</a>, princess!',
+        ]));
 
-        $this->assertEquals($this->emailRepository->count(), 1);
 
         $response->assertStatus(201)->assertJson([
             'data' => $responseEmailData,
         ]);
 
+        $this->assertEquals($this->emailRepository->count(), 1);
+        $this->assertEquals($this->linkRepository->count(), 1);
+
+        $link = $this->linkRepository->first();
         $emailID = $response->decodeResponseJson()['data']['id'];
 
-        Mail::assertSent(RawMailable::class, function ($mailable) use ($emailID) {
-            $mailable->send(app('mailer'));
+        Mail::assertSent(RawMailable::class, function ($mailable) use ($emailID, $link) {
+            $mailable->build();
+
+            $this->assertContains(route('tracking.email', $emailID) ,$mailable->viewData['content']);
+            $this->assertContains(route('tracking.links', $link->id) ,$mailable->viewData['content']);
 
             return $mailable->hasFrom('j.cash@example.com')
-                   && $mailable->hasTo('j.carter.cash@example.com')
-                   && $mailable->getEmail()->id == $emailID;
+                   && $mailable->hasTo('j.carter.cash@example.com');
         });
     }
 

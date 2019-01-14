@@ -24,35 +24,8 @@ class RawMailable extends Mailable
     {
         $this->from($this->email->getFrom())
              ->to($this->email->getTo())
-             ->subject($this->email->getSubject());
-    }
-
-    /**
-     * Overwrite Mailable@send to avoid using Blade.
-     *
-     * @param \Illuminate\Contracts\Mail\Mailer $mailer
-     *
-     * @return void
-     */
-    public function send(MailerContract $mailer)
-    {
-        Container::getInstance()->call([$this, 'build']);
-
-        $content = $this->email->getContent();
-
-        $mailer->send([], [], function ($message) use ($content) {
-            $message->setBody($content, 'text/html');
-
-            $this->buildFrom($message)
-                 ->buildRecipients($message)
-                 ->buildSubject($message)
-                 ->buildAttachments($message)
-                 ->runCallbacks($message);
-        });
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
+             ->subject($this->email->getSubject())
+             ->view('emails.simple')
+             ->with(['content' => $this->email->getContent()]);
     }
 }

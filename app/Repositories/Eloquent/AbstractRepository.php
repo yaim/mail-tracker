@@ -13,6 +13,11 @@ abstract class AbstractRepository implements AbstractRepositoryInterface
         $this->model = $this->getModel();
     }
 
+    public function first()
+    {
+        return $this->model->first();
+    }
+
     public function findOrFail(string $id)
     {
         return $this->model->findOrFail($id);
