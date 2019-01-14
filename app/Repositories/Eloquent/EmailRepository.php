@@ -51,23 +51,4 @@ class EmailRepository extends AbstractRepository implements EmailRepositoryInter
                     ->where('user_id', $user->id)
                     ->firstOrFail();
     }
-
-    public function getRawEmails(int $limit = -1) : Collection
-    {
-        return $this->model
-                    ->whereNull('parsed_at')
-                    ->orderBy('created_at', 'desc')
-                    ->limit($limit)
-                    ->get();
-    }
-
-    public function getSendReadyEmails(int $limit = -1) : Collection
-    {
-        return $this->model
-                    ->whereNotNull('parsed_at')
-                    ->whereNull('sent_at')
-                    ->orderBy('created_at', 'desc')
-                    ->limit($limit)
-                    ->get();
-    }
 }

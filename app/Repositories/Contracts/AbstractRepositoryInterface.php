@@ -4,9 +4,9 @@ namespace App\Repositories\Contracts;
 
 interface AbstractRepositoryInterface
 {
-    public function getModel();
+    public function first();
 
-    public function create(array $data);
+    public function getModel();
 
     public function findOrFail(string $id);
 

@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(Link::class, function (Faker $faker) {
     return [
         'id'       => $faker->unique()->uuid,
-        'email_id' => factory(Email::class)->create()->id,
+        'email_id' => factory(Email::class),
         'address'  => $faker->url,
     ];
 });

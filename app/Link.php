@@ -12,11 +12,6 @@ class Link extends Model implements Clickable
         'address',
     ];
 
-    public function email()
-    {
-        return $this->belongsTo(Email::class);
-    }
-
     public function clicks()
     {
         return $this->morphMany(Click::class, 'clickable');
