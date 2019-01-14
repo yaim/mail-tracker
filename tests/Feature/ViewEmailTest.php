@@ -48,7 +48,7 @@ class ViewEmailTest extends TestCase
             'id' => $emailId,
         ]);
 
-        $response = $this->get('/email/'.$emailId);
+        $response = $this->get(route('email.show-parsed', $emailId));
 
         $response->assertStatus(404);
     }
