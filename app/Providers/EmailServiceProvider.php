@@ -5,11 +5,9 @@ namespace App\Providers;
 use App\Services\Contracts\Email\EmailCreatorInterface;
 use App\Services\Contracts\Email\EmailParserInterface;
 use App\Services\Contracts\Email\EmailSenderInterface;
-use App\Services\Contracts\Email\EmailValidatorInterface;
 use App\Services\Email\EmailCreator;
 use App\Services\Email\EmailParser;
 use App\Services\Email\EmailSender;
-use App\Services\Email\EmailValidator;
 use Illuminate\Support\ServiceProvider;
 
 class EmailServiceProvider extends ServiceProvider
@@ -33,6 +31,5 @@ class EmailServiceProvider extends ServiceProvider
         $this->app->bind(EmailCreatorInterface::class, EmailCreator::class);
         $this->app->bind(EmailParserInterface::class, EmailParser::class);
         $this->app->bind(EmailSenderInterface::class, EmailSender::class);
-        $this->app->bind(EmailValidatorInterface::class, EmailValidator::class);
     }
 }
