@@ -6,7 +6,6 @@ use App\Email;
 use App\Events\Emails\EmailParsed;
 use App\Repositories\Contracts\LinkRepositoryInterface as LinkRepository;
 use App\Services\Contracts\Email\EmailParserInterface;
-use App\Services\Contracts\Email\EmailValidatorInterface as EmailValidator;
 use Ramsey\Uuid\Uuid;
 
 class EmailParser implements EmailParserInterface
@@ -14,11 +13,9 @@ class EmailParser implements EmailParserInterface
     protected $domParser;
     protected $email;
     protected $links;
-    protected $validator;
 
-    public function __construct(EmailValidator $validator, LinkRepository $links)
+    public function __construct(LinkRepository $links)
     {
-        $this->validator = $validator;
         $this->links = $links;
     }
 
@@ -27,17 +24,9 @@ class EmailParser implements EmailParserInterface
         $this->email = $email;
         $this->domParser = domDocument($this->email->content);
 
-        $this->validate();
         $this->process();
 
         event(new EmailParsed($this->email));
-    }
-
-    protected function validate()
-    {
-        $this->validator
-             ->setModel($this->email)
-             ->checkNotParsed();
     }
 
     protected function process()
