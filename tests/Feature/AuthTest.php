@@ -10,11 +10,6 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
     protected function assertNoUserCreated()
     {
         $this->assertEquals(User::count(), 0);
