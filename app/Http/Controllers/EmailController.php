@@ -40,11 +40,4 @@ class EmailController extends Controller
 
         return new EmailResource($email);
     }
-
-    public function showParsed(string $id)
-    {
-        $email = $this->emails->findParsedOrFail($id);
-
-        return (new EmailResource($email))->parsedContent();
-    }
 }

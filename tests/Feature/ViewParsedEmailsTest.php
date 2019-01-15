@@ -21,7 +21,7 @@ class ViewParsedEmailsTest extends TestCase
             'parsed_content'     => '<img src="'.route('tracking.email', $emailId).'">We think alike.',
         ]);
 
-        $response = $this->get(route('email.show-parsed', $emailId));
+        $response = $this->get(route('parsed-email.show', $emailId));
 
         $response->assertStatus(200);
         $response->assertSee('We think alike.');
@@ -36,7 +36,7 @@ class ViewParsedEmailsTest extends TestCase
             'id' => $emailId,
         ]);
 
-        $response = $this->get(route('email.show-parsed', $emailId));
+        $response = $this->get(route('parsed-email.show', $emailId));
 
         $response->assertStatus(404);
     }

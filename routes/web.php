@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/', 'HomeController@welcome')->name('home.welcome');
-Route::get('email/{id}', 'EmailController@showParsed')->name('email.show-parsed');
+Route::get('email/{id}', 'ParsedEmailController@show')->name('parsed-email.show');
 Route::prefix('tracking')->name('tracking.')->group(function () {
     Route::get('email/{uuid}.gif', 'TrackingController@email')->name('email');
     Route::get('links/{uuid}', 'TrackingController@link')->name('links');
