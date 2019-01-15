@@ -20,7 +20,7 @@ class EmailController extends Controller
 
     public function index()
     {
-        $emails = $this->emails->forUser(Auth::user());
+        $emails = $this->emails->paginateForUser(Auth::user());
 
         return new EmailCollectionResource($emails);
     }
