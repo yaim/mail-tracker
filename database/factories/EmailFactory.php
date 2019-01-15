@@ -32,3 +32,9 @@ $factory->state(Email::class, 'parsed', function (Faker $faker) {
         'parsed_at'      => Carbon::parse('-1 hours'),
     ];
 });
+
+$factory->state(Email::class, 'sent', function (Faker $faker) {
+    return [
+        'sent_at' => Carbon::parse('-30 minutes'),
+    ];
+});
