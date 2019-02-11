@@ -79,7 +79,7 @@ class ViewReportsTest extends TestCase
                  ]]);
     }
 
-    public function testUserCanNavigateThroushPaginatedOwnedPostedEmails()
+    public function testUserCanNavigateThroughPaginatedOwnedPostedEmails()
     {
         $user = factory(User::class)->create(['id' => 100]);
         factory(Email::class, 70)->create(['user_id' => 100]);
