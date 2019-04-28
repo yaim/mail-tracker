@@ -20,7 +20,7 @@ class EmailController extends Controller
 
     public function index()
     {
-        $emails = $this->emails->forUser(Auth::user());
+        $emails = $this->emails->paginateForUser(Auth::user());
 
         return new EmailCollectionResource($emails);
     }
@@ -39,12 +39,5 @@ class EmailController extends Controller
         $email = $this->emails->findOrFailForUser($id, Auth::user());
 
         return new EmailResource($email);
-    }
-
-    public function showParsed(string $id)
-    {
-        $email = $this->emails->findParsedOrFail($id);
-
-        return (new EmailResource($email))->parsedContent();
     }
 }

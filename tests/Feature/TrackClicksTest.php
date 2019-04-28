@@ -9,7 +9,7 @@ use App\Services\Contracts\Tracking\TrackingStatsReporterInterface as TrackingRe
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class TrackingTest extends TestCase
+class TrackClicksTest extends TestCase
 {
     use RefreshDatabase;
 

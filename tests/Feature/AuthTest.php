@@ -10,11 +10,6 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
     protected function assertNoUserCreated()
     {
         $this->assertEquals(User::count(), 0);
@@ -225,7 +220,7 @@ class AuthTest extends TestCase
         ])->assertNoUserCreated();
     }
 
-    public function testUserCanbeRegostered()
+    public function testUserCanBeRegistered()
     {
         $user = $this->getUserParams();
 
