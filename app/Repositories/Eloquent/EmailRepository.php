@@ -6,7 +6,6 @@ use App\Email;
 use App\Repositories\Contracts\EmailRepositoryInterface;
 use App\Services\Contracts\Email\EmailCreatorInterface as EmailCreator;
 use App\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\AbstractPaginator;
 
@@ -37,12 +36,6 @@ class EmailRepository extends AbstractRepository implements EmailRepositoryInter
                     ->where($this->model->getKeyName(), $id)
                     ->whereNotNull('parsed_at')
                     ->firstOrFail();
-    }
-
-    public function forUser(User $user) : Collection
-    {
-        return $this->filterUserEmails($user)
-                    ->get();
     }
 
     public function findOrFailForUser(string $id, User $user) : Email
