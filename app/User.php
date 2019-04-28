@@ -18,6 +18,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getAvatarAttribute()
+    {
+        $emailHash = md5(strtolower($this->attributes['email']));
+
+        return 'https://s.gravatar.com/avatar/'.$emailHash.'?s=80';
+    }
+
     public function emails()
     {
         return $this->hasMany(Email::class);

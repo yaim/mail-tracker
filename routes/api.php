@@ -17,3 +17,12 @@ Route::middleware('auth:api')->group(function () {
         'create', 'edit', 'update', 'destroy',
     ]);
 });
+
+Route::prefix('auth')->group(function () {
+    Route::post('login', 'Auth\TokenLoginController@login')->name('api.auth.login');
+
+    Route::middleware('auth:api')->group(function () {
+        Route::get('user', 'Auth\TokenLoginController@user')->name('api.auth.user');
+        Route::post('logout', 'Auth\TokenLoginController@logout')->name('api.auth.logout');
+    });
+});
