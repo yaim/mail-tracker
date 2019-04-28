@@ -220,7 +220,7 @@ class AuthTest extends TestCase
         ])->assertNoUserCreated();
     }
 
-    public function testUserCanbeRegostered()
+    public function testUserCanBeRegistered()
     {
         $user = $this->getUserParams();
 
